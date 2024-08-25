@@ -1,18 +1,20 @@
-import 'package:chat_app/auth/signin.dart';
+import 'package:chat_app/services/auth/auth_gate.dart';
 import 'package:chat_app/firebase_options.dart';
+import 'package:chat_app/services/firebase_messagin.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-void main(){
-  _initializeFirebase();
-  runApp(const MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home:SignIn()
-  ));
-}
+void main() async {
 
-_initializeFirebase()async{
+  WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
-);
+  );
+
+  FirebaseMessagingService();
+  runApp(const MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: AuthGate(),
+  ));
 }
